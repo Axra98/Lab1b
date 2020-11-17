@@ -58,8 +58,11 @@ public class Truck extends Car{
      */
     public void removeCar(Car car) {
         int last = cars.lastIndexOf(car);
-        if(up == false && cars.contains(car) && cars.indexOf(car) == last)
+
+
+        if(up == false && cars.contains(car) && cars.indexOf(car) == last) {
             cars.remove(car);
+        }
     }
     /**
      * @return speedFactor, depending on enginePower and trimFactor

@@ -2,7 +2,7 @@ import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public abstract class Car implements Movable{
+public abstract class Car{
 
     private int nrDoors; // Number of doors on the car
     private double enginePower, currentSpeed, x,y; // Engine power of the car The current speed of the car, riktningarna i planet för move.
@@ -179,5 +179,9 @@ public abstract class Car implements Movable{
      */
     protected void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    protected void setPosition(Point.Double position) {
+        this.position = position;
     }
 }

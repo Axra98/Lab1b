@@ -33,8 +33,7 @@ public class Scania extends Car {
      * @param change , tilts the lift with the angle change which can be both neg and pos
      */
     public void tilt(double change) {
-        if(getCurrentSpeed() == 0)
-            if((angle + change) >=0 && (angle + change) <= 75)
+        if(getCurrentSpeed() == 0 && (angle + change) >=0 && (angle + change) <= 75)
                 angle += change;
     }
 

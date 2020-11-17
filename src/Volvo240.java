@@ -9,7 +9,6 @@ public class Volvo240 extends Car {
     protected Volvo240(){
         super(4, 100, Color.GRAY, "Volvo 240", new Point.Double(0,0));
         stopEngine();
-
     }
 
     /** Här får man en speedFactor som tar hänsyn till en trimFactor.
