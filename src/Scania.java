@@ -1,9 +1,8 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public class Scania extends Car {
+public class Scania extends SuperTruck {
 
-    private final static double trimFactor = 1.5;
     private static double angle = 0;
 
     /**
@@ -12,13 +11,6 @@ public class Scania extends Car {
     public Scania(){
         super(2, 200, Color.WHITE, "Scania", new Point2D.Double(0,0));
         stopEngine();
-    }
-
-    /**
-     * @return speedFactor, depending on enginePower and trimFactor
-     */
-    public double speedFactor(){
-        return getEnginePower() * 0.01 * trimFactor;
     }
 
     /**

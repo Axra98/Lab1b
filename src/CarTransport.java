@@ -3,16 +3,15 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Truck extends Car{
+public class CarTransport extends SuperTruck{
 
-    private final static double trimFactor = 1.5;
     private boolean up = true;
     private List<Car> cars = new ArrayList<>();
 
     /**
      * Construktor, apply startvalues to an object of Truck
      */
-    public Truck() {
+    public CarTransport() {
         super(2, 300, Color.BLUE, "Truck", new Point2D.Double(0,0));
         stopEngine();
     }
@@ -63,11 +62,5 @@ public class Truck extends Car{
         if(up == false && cars.contains(car) && cars.indexOf(car) == last) {
             cars.remove(car);
         }
-    }
-    /**
-     * @return speedFactor, depending on enginePower and trimFactor
-     */
-    public double speedFactor(){
-        return getEnginePower() * 0.01 * trimFactor;
     }
 }
