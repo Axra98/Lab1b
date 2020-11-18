@@ -6,19 +6,8 @@ public abstract class Vehicle implements Movable {
     private int nrDoors; // Number of doors on the car
     private double enginePower, currentSpeed, x,y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
     private Color color; // Color of the car
-    private String modelName; // The car model name
     private Direction direction = Direction.UP;
     private Point.Double position; //default x=0, y=0
-
-    protected Vehicle (int nrDoors, double enginePower, Color color, String modelName, Point.Double position, Double length){
-        this.nrDoors = nrDoors;
-        this.enginePower = enginePower;
-        this.color = color;
-        this.modelName = modelName;
-        this.position = position;
-        this.length = length;
-        stopEngine();
-    }
 
     /**
      * Returnerar antalet dörrar.
@@ -75,7 +64,9 @@ public abstract class Vehicle implements Movable {
     /**
      * En speedFactor som anvädns i incrementSpeed och decrementSpeed
      */
-    protected abstract double speedFactor();
+    protected double speedFactor(){
+        return enginePower * 0.01;
+    }
 
     private void incrementSpeed(double amount){
         currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
@@ -185,7 +176,7 @@ public abstract class Vehicle implements Movable {
         this.position = position;
     }
 
-    public double getLength() {
+    protected double getLength() {
         return length;
     }
 }

@@ -24,10 +24,20 @@ public class Scania extends SuperTruck {
     /**
      * @param change , tilts the lift with the angle change which can be both neg and pos
      */
-    public void tilt(double change) {
-        if(getCurrentSpeed() == 0 && (angle + change) >=0 && (angle + change) <= 75)
-                angle += change;
+    public void rampDown(double change){
+        if(getCurrentSpeed() == 0 && (angle - change) >=0)
+            angle -= change;
     }
+    public void rampUp(double change){
+        if(getCurrentSpeed() == 0 && (angle + change) <=75)
+            angle += change;
+    }
+    /*public void tilt(double change){
+        if(getCurrentSpeed() == 0 && (change) <=75 && (change) >=0)
+            angle = change;
+    }
+
+     */
 
     /**
      * @return the current angle of the lift

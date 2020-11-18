@@ -1,13 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+
+import java.util.Deque;
+
 
 public class CarTransport extends SuperTruck implements Load{
 
     private boolean up = true;
-    private List<Car> cars = new ArrayList<>();
+    private Deque<Car> cars = new ArrayDeque<>();
 
     /**
      * Construktor, apply startvalues to an object of Truck
@@ -35,8 +37,9 @@ public class CarTransport extends SuperTruck implements Load{
     @Override
     public void move(){
         super.move();
-
-        // fixa någon del som gör att resten av bilarna följer med carTransport
+        for(Car e : cars){
+            e.setPosition(getPos());
+        }
     }
 
     /**
@@ -54,7 +57,7 @@ public class CarTransport extends SuperTruck implements Load{
      */
     public void loadCar(Car car) {
 
-        if(up == false && cars.size()<=6) { // satt en in en maxgräns på 6
+        if(up == false && cars.size()<=6) { // satt in en maxgräns på 6
             if(getPos().distance(car.getPos()) < 4 && car.getLength() < 5) {
                 cars.add(car);
                 car.setPosition(getPos());
@@ -65,19 +68,27 @@ public class CarTransport extends SuperTruck implements Load{
         }
     }
 
-    /**
-     * Removes a Car from the Truck
-     * @param car which car you want to remove
-     */
+
     public void removeCar(Car car) {
-        int last = cars.lastIndexOf(car);
-        car.setPosition(new Point2D.Double(getPos().getX() + 4, getPos().getY()));
-        if(up == false && cars.contains(car) && cars.indexOf(car) == last) {
-            car.setPosition(new Point2D.Double(getPos().getX() + 4, getPos().getY()));
-            cars.remove(car);
+       if(cars.peekLast().equals(car)){
+            switch (getDirection()) {
+                case UP:
+                    car.setPosition(new Point2D.Double(car.getPos().getX(), car.getPos().getY()-2));
+                    break;
+                case RIGHT:
+                    car.setPosition(new Point2D.Double(car.getPos().getX()-2, car.getPos().getY()));
+                    break;
+                case DOWN:
+                    car.setPosition(new Point2D.Double(car.getPos().getX(), car.getPos().getY()+2));
+                    break;
+                case LEFT:
+                    car.setPosition(new Point2D.Double(car.getPos().getX()+2, car.getPos().getY()));
+                    break;
+
+
+            }
         }
-
-        //Gör om till ett switchstatement som lastar av bilen rakt bakom flaket
+       else
+           System.out.println("Din idiot den bilen går inte att ta ut!");
     }
-
 }
