@@ -3,7 +3,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarTransport extends SuperTruck{
+public class CarTransport extends SuperTruck implements Load{
 
     private boolean up = true;
     private List<Car> cars = new ArrayList<>();
@@ -17,15 +17,14 @@ public class CarTransport extends SuperTruck{
     }
 
     /**
-     *  Checks if the ramp is up
+     *  Lifts the ramp up
      */
-
     public void rampUp() {
         up = true;
     }
 
     /**
-     *  Checks if the ramp is down
+     *  If the truck is still put down the ramp
      */
     public void rampDown() {
         if(getCurrentSpeed()==0)
@@ -46,10 +45,17 @@ public class CarTransport extends SuperTruck{
      * @param car which car you want to load
      */
     public void loadCar(Car car) {
-        if(up == false && car.getPos().equals(getPos()) && cars.size()<=6) { // satten in en maxgräns på 6
-            cars.add(car);
+
+        if(up == false && cars.size()<=6) { // satt en in en maxgräns på 6
+            if(Math.abs(car.getPos().getX() - getPos().getX()) <4 &&  Math.abs(car.getPos().getY() - getPos().getY()) <4) {
+                cars.add(car);
+                car.setPosition(getPos());
+            }
+        } else {
+            System.out.println("Could not load");
         }
     }
+
 
     /**
      * Removes a Car from the Truck
@@ -57,10 +63,10 @@ public class CarTransport extends SuperTruck{
      */
     public void removeCar(Car car) {
         int last = cars.lastIndexOf(car);
-
-
         if(up == false && cars.contains(car) && cars.indexOf(car) == last) {
             cars.remove(car);
+            car.setPosition(new Point2D.Double(getPos().getX() + 4, getPos().getY()));
         }
     }
+
 }

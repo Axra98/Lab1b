@@ -118,11 +118,19 @@ public abstract class Vehicle implements Movable {
      att byta position.
      */
     public void move() {
-        switch (direction){
-            case UP: position.setLocation(x, y += currentSpeed); break;
-            case RIGHT: position.setLocation(x += currentSpeed, y); break;
-            case DOWN: position.setLocation(x, y -= currentSpeed); break;
-            case LEFT: position.setLocation(x -= currentSpeed, y); break;
+        switch (direction) {
+            case UP:
+                position.setLocation(x, y += currentSpeed);
+                break;
+            case RIGHT:
+                position.setLocation(x += currentSpeed, y);
+                break;
+            case DOWN:
+                position.setLocation(x, y -= currentSpeed);
+                break;
+            case LEFT:
+                position.setLocation(x -= currentSpeed, y);
+                break;
         }
     }
 
@@ -153,7 +161,7 @@ public abstract class Vehicle implements Movable {
     /**
      *Returnerar en bils position
      */
-    protected Point2D getPos(){
+    protected Point2D.Double getPos(){
         return position;
     }
 
@@ -172,7 +180,7 @@ public abstract class Vehicle implements Movable {
         this.direction = direction;
     }
 
-    protected void setPosition(Point.Double position) {
+    protected void setPosition(Point2D.Double position) {
         this.position = position;
     }
 

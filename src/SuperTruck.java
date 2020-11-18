@@ -16,5 +16,4 @@ public abstract class SuperTruck extends Vehicle implements Movable{
         return getEnginePower() * 0.01;
     }
 
-
 }
