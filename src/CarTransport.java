@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class CarTransport extends SuperTruck implements Load{
      * Construktor, apply startvalues to an object of Truck
      */
     public CarTransport() {
-        super(2, 300, Color.BLUE, "Truck", new Point2D.Double(0,0));
+        super(2, 300, Color.BLUE, "Truck", new Point2D.Double(0,0), 10.0);
         stopEngine();
     }
 
@@ -31,6 +32,13 @@ public class CarTransport extends SuperTruck implements Load{
             up = false;
     }
 
+    @Override
+    public void move(){
+        super.move();
+
+        // fixa någon del som gör att resten av bilarna följer med carTransport
+    }
+
     /**
      * Changes the currentSpeed of the Truck
      * @param amount the amount you gas with
@@ -47,15 +55,15 @@ public class CarTransport extends SuperTruck implements Load{
     public void loadCar(Car car) {
 
         if(up == false && cars.size()<=6) { // satt en in en maxgräns på 6
-            if(Math.abs(car.getPos().getX() - getPos().getX()) <4 &&  Math.abs(car.getPos().getY() - getPos().getY()) <4) {
+            if(getPos().distance(car.getPos()) < 4 && car.getLength() < 5) {
                 cars.add(car);
                 car.setPosition(getPos());
             }
-        } else {
+        }
+        else {
             System.out.println("Could not load");
         }
     }
-
 
     /**
      * Removes a Car from the Truck
@@ -63,10 +71,13 @@ public class CarTransport extends SuperTruck implements Load{
      */
     public void removeCar(Car car) {
         int last = cars.lastIndexOf(car);
+        car.setPosition(new Point2D.Double(getPos().getX() + 4, getPos().getY()));
         if(up == false && cars.contains(car) && cars.indexOf(car) == last) {
-            cars.remove(car);
             car.setPosition(new Point2D.Double(getPos().getX() + 4, getPos().getY()));
+            cars.remove(car);
         }
+
+        //Gör om till ett switchstatement som lastar av bilen rakt bakom flaket
     }
 
 }
