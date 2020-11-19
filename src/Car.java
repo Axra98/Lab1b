@@ -4,7 +4,6 @@ import java.awt.geom.Point2D;
 
 public abstract class Car implements Movable {
 
-
     private int nrDoors; // Number of doors on the car
     private double enginePower, currentSpeed, x, y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
     private Color color; // Color of the car
@@ -19,8 +18,7 @@ public abstract class Car implements Movable {
      * @param modelName anger modelnamn
      * @param position anger bilens startposition
      */
-
-    private Vehicle parent;
+    public Vehicle parent = new Vehicle();
 
     protected Car(int nrDoors, double enginePower, Color color, String modelName, Point.Double position, double length) {
         this.nrDoors = nrDoors;
@@ -29,18 +27,18 @@ public abstract class Car implements Movable {
         this.modelName = modelName;
         this.position = position;
         this.length = length;
-        stopEngine();
+
     }
 
-    public double getEnginePower() {
+    protected double getEnginePower() {
         return parent.getEnginePower();
     }
 
-    public int getNrDoors() {
+    protected int getNrDoors() {
         return parent.getNrDoors();
     }
 
-    public double getCurrentSpeed() {
+    protected double getCurrentSpeed() {
         return parent.getCurrentSpeed();
     }
 
@@ -62,20 +60,12 @@ public abstract class Car implements Movable {
 
     protected abstract double speedFactor();
 
-
     public void gas(double amount) {
         parent.gas(amount);
     }
 
     public void brake (double amount){
         parent.brake(amount);
-    }
-
-    protected enum Direction {
-        RIGHT,
-        LEFT,
-        UP,
-        DOWN,
     }
 
     public void move () {
@@ -93,6 +83,7 @@ public abstract class Car implements Movable {
     protected Point2D.Double getPos () {
         return parent.getPos();
     }
+
     protected Vehicle.Direction getDirection () {
         return parent.getDirection();
     }

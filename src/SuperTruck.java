@@ -9,7 +9,7 @@ public abstract class SuperTruck implements Movable{
     private String modelName; // The car model name
     private Vehicle.Direction direction = Vehicle.Direction.UP;
     private Point.Double position; //default x=0, y=0
-    private Vehicle parent;
+    private Vehicle parent = new Vehicle();
 
    protected SuperTruck (int nrDoors, double enginePower, Color color, String modelName, Point.Double position, Double length){
        this.nrDoors = nrDoors;
@@ -18,10 +18,10 @@ public abstract class SuperTruck implements Movable{
        this.modelName = modelName;
        this.position = position;
        this.length = length;
-       stopEngine();
+
     }
 
-    public double getCurrentSpeed() {
+    protected double getCurrentSpeed() {
         return parent.getCurrentSpeed();
     }
 
@@ -33,23 +33,12 @@ public abstract class SuperTruck implements Movable{
         parent.stopEngine();
     }
 
-    protected double speedFactor() {
-        return enginePower * 0.01;
-    }
-
-    public void gas(double amount) {
+    protected void gas(double amount) {
         parent.gas(amount);
     }
 
-    public void brake(double amount){
+    protected void brake(double amount){
         parent.brake(amount);
-    }
-
-    protected enum Direction{
-        RIGHT,
-        LEFT,
-        UP,
-        DOWN,
     }
 
     public void move() {

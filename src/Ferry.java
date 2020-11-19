@@ -6,7 +6,7 @@ import java.util.List;
 public class Ferry extends Vehicle implements Load{
 
     private int max;
-    private List<Car> store;
+    public List<Car> store;
     private double enginePower, currentSpeed, x, y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
     private Color color; // Color of the car
     private String modelName; // The car model name
@@ -21,7 +21,6 @@ public class Ferry extends Vehicle implements Load{
         this.modelName = "Färja 1";
         this.position = new Point2D.Double(0,0);
         this.length = 80;
-        stopEngine();
         store = new ArrayList<>();
         this.max = max;
     }

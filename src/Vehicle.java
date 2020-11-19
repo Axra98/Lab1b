@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public abstract class Vehicle implements Movable {
+public class Vehicle implements Movable {
 
     private int nrDoors; // Number of doors on the car
     private double enginePower, currentSpeed, x,y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
@@ -80,7 +80,7 @@ public abstract class Vehicle implements Movable {
      * @param amount är av typen Double som avgör hur mycket currentSpeed ökar
      * Metoden ökar hastigheten på bilen med amount
      */
-    public void gas(double amount){
+    protected void gas(double amount){
         if(amount>=0.0 && amount <= 1.0)
             incrementSpeed(amount);
     }
@@ -90,7 +90,7 @@ public abstract class Vehicle implements Movable {
      * @param amount är av typen Double som avgör hur mycket currentSpeed minskar
      */
     // TODO fix this method according to lab pm
-    public void brake(double amount){
+    protected void brake(double amount){
         if(amount>=0.0 && amount <= 1.0)
             decrementSpeed(amount);
     }
@@ -98,7 +98,7 @@ public abstract class Vehicle implements Movable {
     /** Skapar en enum med riktningar. Dessa går inte att ändra och är lite som
      * "final variables"
      */
-    protected enum Direction{
+    public enum Direction{
         RIGHT,
         LEFT,
         UP,

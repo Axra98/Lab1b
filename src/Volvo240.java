@@ -7,8 +7,7 @@ public class Volvo240 extends Car {
     private final static double trimFactor = 1.25;
 
     protected Volvo240(){
-        super(4, 100, Color.GRAY, "Volvo 240", new Point.Double(0,0), 3);
-        stopEngine();
+        super(4, 100, Color.GRAY, "Volvo 240", new Point.Double(0,0), 3.0);
     }
 
     /** Här får man en speedFactor som tar hänsyn till en trimFactor.
