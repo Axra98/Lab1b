@@ -9,6 +9,9 @@ public class Vehicle implements Movable {
     private Direction direction = Direction.UP;
     private Point.Double position; //default x=0, y=0
 
+    public Vehicle(){
+
+    }
     /**
      * Returnerar antalet dörrar.
      * @return

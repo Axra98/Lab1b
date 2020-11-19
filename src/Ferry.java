@@ -12,7 +12,7 @@ public class Ferry extends Vehicle implements Load{
     private String modelName; // The car model name
     private Vehicle.Direction direction = Vehicle.Direction.UP;
     private Point.Double position; //default x=0, y=0
-    private Vehicle parent;
+    private Vehicle parent = new Vehicle();
 
 
     public Ferry(int max) {

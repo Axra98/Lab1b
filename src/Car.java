@@ -27,7 +27,6 @@ public abstract class Car implements Movable {
         this.modelName = modelName;
         this.position = position;
         this.length = length;
-
     }
 
     protected double getEnginePower() {
