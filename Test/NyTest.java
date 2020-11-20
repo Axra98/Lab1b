@@ -9,7 +9,6 @@ import static org.junit.Assert.assertTrue;
 public class NyTest {
 
     public Volvo240 volvo = new Volvo240();
-    public SuperTruck scania = new Scania();
     public CarTransport cartran = new CarTransport(4);
     public Workshop work = new Workshop(volvo, 6);
     public Ferry ferry = new Ferry(100);
@@ -17,7 +16,7 @@ public class NyTest {
 
     @Test
     public void testGetLength() {
-        assertTrue(cartran.getLength() == 10.0);
+        assertTrue(volvo.getLength() == 3);
     }//Fel
 
     @Test
@@ -37,25 +36,27 @@ public class NyTest {
         Car car = new Volvo240();
         cartran.rampDown();
         cartran.loadCar(car);
-        assertTrue(cartran.cars.contains(car));
+        assertTrue(cartran.getCars().contains(car));
     } //fel
 
     @Test
     public void testRemoveCarTransport() {
+        cartran.rampDown();
+        cartran.loadCar(volvo);
         cartran.removeCar(volvo);
-        assertFalse(cartran.cars.contains(volvo));
+        assertFalse(cartran.getCars().contains(volvo));
     }//fel
 
     @Test
     public void testLoadCarFerry() {
         ferry.loadCar(volvo);
-        assertTrue(ferry.store.contains(volvo));
+        assertTrue(ferry.getStore().contains(volvo));
     }
 
     @Test
     public void testRemoveCarFerry() {
         ferry.removeCar(volvo);
-        assertFalse(ferry.store.contains(volvo));
+        assertFalse(ferry.getStore().contains(volvo));
     }
 
     @Test
@@ -119,8 +120,8 @@ public class NyTest {
     @Test
     public void testTurnRight() {
         volvo.setDirection(Vehicle.Direction.UP);
-
         volvo.turnRight();
+
         assertTrue(volvo.getDirection() == Vehicle.Direction.RIGHT);
         volvo.turnRight();
         assertTrue(volvo.getDirection() == Vehicle.Direction.DOWN);
@@ -165,7 +166,7 @@ public class NyTest {
 
     @Test
     public void testGetColor() {
-        assertTrue(volvo.getColor().equals(Color.BLACK));
+        assertTrue(volvo.getColor().equals(Color.GRAY));
     }
 
     @Test
@@ -183,7 +184,7 @@ public class NyTest {
 
     @Test
     public void testSpeedFactor() {
-        assertTrue(volvo.speedFactor() == 1.2);
+        assertTrue(volvo.speedFactor() == 1.25);
     }
 
     @Test
@@ -192,6 +193,11 @@ public class NyTest {
         assertTrue(saab.speedFactor() == 1.625);
         saab.setTurboOff();
         assertTrue(saab.speedFactor() == 1.25);
+    }
+
+    @Test
+    public void testmodelName(){
+        assertTrue(volvo.getmodelName().equals("Volvo 240"));
     }
 
 

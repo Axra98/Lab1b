@@ -1,32 +1,18 @@
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
 public abstract class Car implements Movable {
 
-    private int nrDoors; // Number of doors on the car
-    private double enginePower, currentSpeed, x, y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
-    private Color color; // Color of the car
-    private String modelName; // The car model name
     private Vehicle.Direction direction = Vehicle.Direction.UP;
-    private Point.Double position; //default x=0, y=0
+    private Vehicle parent = new Vehicle();
 
-    /**
-     * @param nrDoors anger antalet dörrar
-     * @param enginePower anger motoreffekt
-     * @param color anger färgen
-     * @param modelName anger modelnamn
-     * @param position anger bilens startposition
-     */
-    public Vehicle parent = new Vehicle();
-
-    protected Car(int nrDoors, double enginePower, Color color, String modelName, Point.Double position, double length) {
-        this.nrDoors = nrDoors;
-        this.enginePower = enginePower;
-        this.color = color;
-        this.modelName = modelName;
-        this.position = position;
-        this.length = length;
+    public Car(int nrDoors, double enginePower, Color color, String modelName, Point.Double position, double length) {
+        parent.nrDoors = nrDoors;
+        parent.enginePower = enginePower;
+        parent.color = color;
+        parent.modelName = modelName;
+        parent.position = position;
+        parent.length = length;
     }
 
     protected double getEnginePower() {
@@ -59,7 +45,7 @@ public abstract class Car implements Movable {
 
     protected abstract double speedFactor();
 
-    public void gas(double amount) {
+    protected void gas(double amount) {
         parent.gas(amount);
     }
 
@@ -76,7 +62,7 @@ public abstract class Car implements Movable {
     }
 
     public void turnRight () {
-        parent.turnLeft();
+        parent.turnRight();
     }
 
     protected Point2D.Double getPos () {
@@ -97,5 +83,9 @@ public abstract class Car implements Movable {
 
     protected double getLength () {
         return parent.getLength();
+    }
+
+    protected String getmodelName() {
+        return parent.getmodelName();
     }
 }

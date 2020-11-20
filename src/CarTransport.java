@@ -9,7 +9,7 @@ import java.util.Deque;
 public class CarTransport extends SuperTruck implements Load{
 
     private boolean up = true;
-    public Deque<Car> cars = new ArrayDeque<>();
+    private Deque<Car> cars = new ArrayDeque<>();
     private int max;
 
     /**
@@ -20,28 +20,34 @@ public class CarTransport extends SuperTruck implements Load{
         this.max = max;
     }
 
-    public boolean getUp() {
+    protected boolean getUp() {
         return up;
     }
 
-    public int getNr () {
+    /**
+     * @return size of cars
+     */
+    protected int getNr () {
         return cars.size();
     }
     /**
      *  Lifts the ramp up
      */
-    public void rampUp() {
+    protected void rampUp() {
         up = true;
     }
 
     /**
      *  If the truck is still put down the ramp
      */
-    public void rampDown() {
+    protected void rampDown() {
         if(getCurrentSpeed()==0)
             up = false;
     }
 
+    /**
+     * Super.move() and sets position to every car in cars
+     */
     @Override
     public void move(){
         super.move();
@@ -55,20 +61,20 @@ public class CarTransport extends SuperTruck implements Load{
      * @param car which car you want to load
      */
     public void loadCar(Car car) {
-
         if(up == false && cars.size()<= max) { // satt in en maxgräns på 6
             if(getPos().distance(car.getPos()) < 4 && car.getLength() < 5) {
                 cars.add(car);
                 car.setPosition(getPos());
             }
         }
-        else {
-            System.out.println("Could not load");
-        }
     }
 
+    /**
+     * Removes car from cars and sets new position to 2 squares behined the transport
+     * @param car
+     */
     public void removeCar(Car car) {
-       if(cars.peekLast().equals(car)){
+       if(cars.peekLast().equals(car) && up == false){
             switch (getDirection()) {
                 case UP:
                     car.setPosition(new Point2D.Double(car.getPos().getX(), car.getPos().getY()-2));
@@ -83,8 +89,15 @@ public class CarTransport extends SuperTruck implements Load{
                     car.setPosition(new Point2D.Double(car.getPos().getX()+2, car.getPos().getY()));
                     break;
             }
+            cars.remove(car);
         }
-       else
-           System.out.println("Din idiot den bilen går inte att ta ut!");
+    }
+
+    protected Deque<Car> getCars() {
+        return cars;
+    }
+
+    protected void setCars(Deque<Car> cars) {
+        this.cars = cars;
     }
 }

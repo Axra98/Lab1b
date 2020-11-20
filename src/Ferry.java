@@ -1,44 +1,64 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class Ferry extends Vehicle implements Load{
+
+public class Ferry implements Load, Movable{
 
     private int max;
-    public List<Car> store;
-    private double enginePower, currentSpeed, x, y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
-    private Color color; // Color of the car
+    private Deque<Car> store;
     private String modelName; // The car model name
     private Vehicle.Direction direction = Vehicle.Direction.UP;
-    private Point.Double position; //default x=0, y=0
     private Vehicle parent = new Vehicle();
 
 
     public Ferry(int max) {
-        this.enginePower = 500;
-        this.color = Color.CYAN;
-        this.modelName = "Färja 1";
-        this.position = new Point2D.Double(0,0);
-        this.length = 80;
-        store = new ArrayList<>();
+        parent.enginePower = 500;
+        parent.color = Color.CYAN;
+        parent.modelName = "Färja 1";
+        parent.position = new Point2D.Double(0,0);
+        parent.length = 80;
+        store = new ArrayDeque<>();
         this.max = max;
     }
 
+    /**
+     * Loads the chosen car to the ferry
+     * @param car which car to load
+     */
     public void loadCar(Car car) {
         if(store.size() < max) {
             store.add(car);
         }
     }
 
+    /**
+     *  removes the chosen car from the ferry
+     * @param car which car to remove
+     */
     public void removeCar(Car car) {
-        if(store.contains(car) && store.indexOf(car) == 0){
+        if(store.contains(car) && store.peekFirst().equals(car)){
+            switch (getDirection()) {
+                case UP:
+                    car.setPosition(new Point2D.Double(car.getPos().getX(), car.getPos().getY()-2));
+                    break;
+                case RIGHT:
+                    car.setPosition(new Point2D.Double(car.getPos().getX()-2, car.getPos().getY()));
+                    break;
+                case DOWN:
+                    car.setPosition(new Point2D.Double(car.getPos().getX(), car.getPos().getY()+2));
+                    break;
+                case LEFT:
+                    car.setPosition(new Point2D.Double(car.getPos().getX()+2, car.getPos().getY()));
+                    break;
+            }
             store.remove(car);
         }
     }
 
     protected double speedFactor() {
-        return getEnginePower() * 0.01;
+        return parent.getEnginePower();
     }
 
     protected void startEngine() {
@@ -49,19 +69,12 @@ public class Ferry extends Vehicle implements Load{
         parent.stopEngine();
     }
 
-    public void gas(double amount) {
+    protected void gas(double amount) {
         parent.gas(amount);
     }
 
-    public void brake (double amount){
+    protected void brake (double amount){
         parent.brake(amount);
-    }
-
-    protected enum Direction {
-        RIGHT,
-        LEFT,
-        UP,
-        DOWN,
     }
 
     public void move () {
@@ -73,7 +86,7 @@ public class Ferry extends Vehicle implements Load{
     }
 
     public void turnRight () {
-        parent.turnLeft();
+        parent.turnRight();
     }
 
     protected Point2D.Double getPos () {
@@ -95,4 +108,11 @@ public class Ferry extends Vehicle implements Load{
         return parent.getLength();
     }
 
+    public Deque<Car> getStore() {
+        return store;
+    }
+
+    public void setStore(Deque<Car> store) {
+        this.store = store;
+    }
 }

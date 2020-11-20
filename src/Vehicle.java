@@ -3,14 +3,18 @@ import java.awt.geom.Point2D;
 
 public class Vehicle implements Movable {
 
-    private int nrDoors; // Number of doors on the car
-    private double enginePower, currentSpeed, x,y, length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
-    private Color color; // Color of the car
-    private Direction direction = Direction.UP;
-    private Point.Double position; //default x=0, y=0
+    protected int nrDoors; // Number of doors on the car
+    protected double enginePower;
+    protected double currentSpeed;
+    protected double x;
+    protected double y;
+    protected double length; // Engine power of the car The current speed of the car, riktningarna i planet för move.
+    protected Color color; // Color of the car
+    protected Direction direction = Direction.UP;
+    protected Point.Double position; //default x=0, y=0
+    protected String modelName;
 
-    public Vehicle(){
-
+    protected Vehicle(){
     }
     /**
      * Returnerar antalet dörrar.
@@ -175,11 +179,25 @@ public class Vehicle implements Movable {
         this.direction = direction;
     }
 
+    /**
+     * Sets position for object of Vehicle
+     * @param position
+     */
     protected void setPosition(Point2D.Double position) {
         this.position = position;
     }
 
+    /**
+     * @return current length
+     */
     protected double getLength() {
         return length;
+    }
+
+    /**
+     * @return ModelName for object
+     */
+    protected String getmodelName() {
+        return modelName;
     }
 }

@@ -10,24 +10,38 @@ public class Scania extends SuperTruck {
      */
     public Scania() {
         super(2, 200, Color.WHITE, "Scania", new Point2D.Double(0, 0), 8.0);
+        stopEngine();
     }
 
     /**
-     * @param change , tilts the lift with the angle change which can be both neg and pos
+     * Ser till att motorn inte kan startas så länge flaket inte är nere
      */
-    public void rampDown(double change){
+    @Override
+    protected void startEngine(){
+        if(getAngle() == 0)
+            super.startEngine();
+    }
+
+    /**
+     * @param change the amoaunt you want to push the ramp up
+     */
+    protected void rampDown(double change){
         if(getCurrentSpeed() == 0 && (angle - change) >=0)
             angle -= change;
     }
-    public void rampUp(double change){
-        if(getCurrentSpeed() == 0 && (angle + change) <=75)
+
+    /**
+     * @param change the amoaunt you want to push the ramp down
+     */
+    protected void rampUp(double change){
+        if(getCurrentSpeed() == 0 && (angle + change) <=70)
             angle += change;
     }
 
     /**
      * @return the current angle of the lift
      */
-    public double getAngle() {
+    protected double getAngle() {
         return angle;
     }
 }
