@@ -5,7 +5,6 @@ import java.util.ArrayDeque;
 
 import java.util.Deque;
 
-
 public class CarTransport extends SuperTruck implements Load{
 
     private boolean up = true;
