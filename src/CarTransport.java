@@ -45,7 +45,7 @@ public class CarTransport extends SuperTruck implements Load{
     }
 
     /**
-     * Super.move() and sets position to every car in cars
+     * Super.move() and sets position to every car in cars wd
      */
     @Override
     public void move(){
